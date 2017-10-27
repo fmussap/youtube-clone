@@ -6,7 +6,7 @@ class App extends PureComponent {
   render () {
     return (
       <div>
-        <this.state.Component>{this.state.title}</this.state.Component>
+        Youtube Clone
       </div>
     )
   }
