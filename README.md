@@ -1,6 +1,6 @@
 # Youtube clone with React
 
-Simple Youtube clone using ReactJs.
+Simple Youtube clone using **ReactJs**.
 
 To install it:
 1) Clone this repo;
