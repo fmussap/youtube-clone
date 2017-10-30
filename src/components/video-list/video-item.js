@@ -2,18 +2,18 @@
 
 import React from 'react'
 
-const VideoItem = ({ video }) => (
-  <li className='list-group-item'>
+const VideoItem = ({ video, handleSelectedVideo }) => (
+  <li className='list-group-item' onClick={handleSelectedVideo(video)}>
     <div className='video-list media'>
       <div className='media-left'>
         <img
           className='media-object'
-          src={video.thumbnails.default.url}
+          src={video.snippet.thumbnails.default.url}
         />
       </div>
       <div className='media-body'>
         <div className='media-heading'>
-          {video.title}
+          {video.snippet.title}
         </div>
       </div>
     </div>

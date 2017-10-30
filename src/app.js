@@ -2,6 +2,7 @@
 
 import React, { PureComponent } from 'react'
 import YTSearch from 'youtube-api-search'
+import _ from 'lodash'
 
 import SearchBar from 'components/search-bar'
 import VideoList from 'components/video-list'
@@ -12,28 +13,39 @@ class App extends PureComponent {
   constructor () {
     super()
     this.state = {
-      searchValue: '',
       videos: [],
       selectedVideo: null
     }
 
-    YTSearch({ key: KEY, term: 'surfboards' }, (videos) => {
-      this.setState({ videos })
-    })
-
-    this.handleInputSearch = (e) => {
-      this.setState({ value: e.target.value })
+    this.handleSelectedVideo = (selectedVideo) => () => {
+      this.setState({ selectedVideo })
     }
+
+    this.videoSearch = (term = 'ReactJs') => {
+      YTSearch({ key: KEY, term }, (videos) => {
+        this.setState({
+          videos,
+          selectedVideo: videos[0]
+        })
+      })
+    }
+
+    this.videoSearch()
   }
   render () {
+    const videoSearch = _.debounce(term => {
+      this.videoSearch(term)
+    }, 750)
     return (
       <div>
-        <SearchBar
-          value={this.state.searchValue}
-          handleInputSearch={this.handleInputSearch}
-        />
-        <VideoDetail video={this.state.selectedVideo} />
-        <VideoList videos={this.state.videos} />
+        <SearchBar handleInputSearch={videoSearch} />
+        <div className='app-videos'>
+          <VideoDetail video={this.state.selectedVideo} />
+          <VideoList
+            videos={this.state.videos}
+            handleSelectedVideo={this.handleSelectedVideo}
+          />
+        </div>
       </div>
     )
   }
