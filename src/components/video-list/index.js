@@ -2,10 +2,13 @@
 
 import React from 'react'
 
-const VideoList = (props) => (
+import VideoItem from './video-item'
+
+const VideoList = ({ videos }) => (
   <ul className='col-md-4 list-group'>
-    {console.log('props', props)}
-    {props.videos.length}
+    {videos.map((video, index) => (
+      <VideoItem key={video.etag} video={video.snippet} />
+    ))}
   </ul>
 )
 
